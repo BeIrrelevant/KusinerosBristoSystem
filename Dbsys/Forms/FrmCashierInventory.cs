@@ -29,9 +29,6 @@ namespace Dbsys.Forms
             con.Open();
 
         
-
-
-            // Load data into dataGridViewOrderDetails
             SqlCommand cmdOrderDetails = new SqlCommand("SELECT * FROM OrderDetails WHERE userId = '" + userId + "'", con);
             SqlDataAdapter daOrderDetails = new SqlDataAdapter(cmdOrderDetails);
             DataTable dtOrderDetails = new DataTable();

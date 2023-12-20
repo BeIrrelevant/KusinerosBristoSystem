@@ -118,11 +118,11 @@ namespace Dbsys.Forms
         {
             if (dataGridViewOrderDetails.SelectedRows.Count > 0)
             {
-                // Get the selected row
+               
                 DataGridViewRow selectedRow = dataGridViewOrderDetails.SelectedRows[0];
                 int orderNumber = Convert.ToInt32(selectedRow.Cells["OrderNumber"].Value);
 
-                // Delete the row from the database
+               
                 using (SqlConnection con = new SqlConnection("Data Source=LAPTOP-K06JGE5P\\SQLEXPRESS;Initial Catalog=DBSYS;Integrated Security=True"))
                 {
                     con.Open();
@@ -133,7 +133,6 @@ namespace Dbsys.Forms
                     }
                 }
 
-                // Remove the row from the DataGridView
                 dataGridViewOrderDetails.Rows.Remove(selectedRow);
 
                 MessageBox.Show("Successfully deleted!");
@@ -145,11 +144,11 @@ namespace Dbsys.Forms
 
             if (dataGridViewPurchase.SelectedRows.Count > 0)
             {
-                // Get the selected row
+              
                 DataGridViewRow selectedRow = dataGridViewPurchase.SelectedRows[0];
                 int ItemNo = Convert.ToInt32(selectedRow.Cells["ItemNo"].Value);
 
-                // Delete the row from the database
+              
                 using (SqlConnection con = new SqlConnection("Data Source=LAPTOP-K06JGE5P\\SQLEXPRESS;Initial Catalog=DBSYS;Integrated Security=True"))
                 {
                     con.Open();
@@ -160,7 +159,7 @@ namespace Dbsys.Forms
                     }
                 }
 
-                // Remove the row from the DataGridView
+              
                 dataGridViewPurchase.Rows.Remove(selectedRow);
 
                 MessageBox.Show("Successfully deleted!");
@@ -188,8 +187,7 @@ namespace Dbsys.Forms
             con.Open();
 
 
-            //Load data into dataGridViewOrderDetails
-            //SqlCommand cmdOrderDetails = new SqlCommand("SELECT * FROM OrderDetails WHERE userId = '" + userId + "'", con);
+       
             SqlCommand cmdOrderDetails = new SqlCommand("SELECT * FROM OrderDetails ", con);
             SqlDataAdapter daOrderDetails = new SqlDataAdapter(cmdOrderDetails);
             DataTable dtOrderDetails = new DataTable();
@@ -512,30 +510,27 @@ namespace Dbsys.Forms
                 {
                     Total = CalculateTotalForCustomer(txtCustomerName.Text);
 
-                    // Check if Senior Citizen or PWD is selected in the combo box
+                   
                     if (cbDiscount.SelectedItem != null)
                     {
                         string discountType = cbDiscount.SelectedItem.ToString();
                         double discountPercentage = 0;
 
-                        // Apply the discount based on the selected option
                         switch (discountType)
                         {
                             case "Senior Citizen":
-                                discountPercentage = 0.05; // 5% discount for senior citizens
+                                discountPercentage = 0.05;
                                 break;
 
                             case "Person with Disability":
-                                discountPercentage = 0.07; // 7% discount for PWD
+                                discountPercentage = 0.07; 
                                 break;
-
-                            // Add more cases if needed for additional discount types
 
                             default:
                                 break;
                         }
 
-                        // Apply the discount to the total
+                     
                         Total -= Total * discountPercentage;
                     }
 
@@ -598,40 +593,37 @@ namespace Dbsys.Forms
                         throw new Exception("Amount paid is less than the Total Bill.");
                     }
 
-                    // Check if Senior Citizen or PWD is selected in the combo box
+                 
                     if (cbDiscount.SelectedItem != null)
                     {
                         string discountType = cbDiscount.SelectedItem.ToString();
                         double discountPercentage = 0;
 
-                        // Apply the discount based on the selected option
                         switch (discountType)
                         {
                             case "Senior Citezen":
-                                discountPercentage = 0.05; // 5% discount for senior citizens
+                                discountPercentage = 0.05; 
                                 break;
 
                             case " Person with Disability":
-                                discountPercentage = 0.07; // 7% discount for PWD
+                                discountPercentage = 0.07; 
                                 break;
 
-                            // Add more cases if needed for additional discount types
 
                             default:
                                 break;
                         }
 
-                        // Calculate the discounted total
                         double discountedTotal = Total - (Total * discountPercentage);
 
-                        // Deduct the discounted total from the amount paid
+                    
                         double change = amountPaid - discountedTotal;
 
                         txtChange.Text = currencySymbol + change.ToString("N2");
                     }
                     else
                     {
-                        // If no discount is selected, deduct the original total from the amount paid
+                     
                         double change = amountPaid - Total;
                         txtChange.Text = currencySymbol + change.ToString("N2");
                     }

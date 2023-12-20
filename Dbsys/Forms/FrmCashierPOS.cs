@@ -69,7 +69,6 @@ namespace Dbsys.Forms
             lblItemNo.Text = GetMax.GlobalDeclaration.ItemNo.ToString();
             dataGridViewPurchase.DataSource = dtPurchase;
 
-          //  loadCbBox();
 
         }
         private void clearfields()
@@ -131,16 +130,16 @@ namespace Dbsys.Forms
             SqlConnection con = new SqlConnection("Data Source=LAPTOP-K06JGE5P\\SQLEXPRESS;Initial Catalog=DBSYS;Integrated Security=True");
             con.Open();
 
-            // Load data into dataGridViewOrderDetails
+         
             SqlCommand cmdOrderDetails = new SqlCommand("SELECT * FROM OrderDetails WHERE userId = '" + userId + "'", con);
             SqlDataAdapter daOrderDetails = new SqlDataAdapter(cmdOrderDetails);
             DataTable dtOrderDetails = new DataTable();
             daOrderDetails.Fill(dtOrderDetails);
 
-            // Get the maximum order number
+ 
             GetMax.GetData.GetMaxOrderNumber();
 
-            // Assign the maximum order number to txtOrderNumber
+      
             txtOrderNumber.Text = GetMax.GlobalDeclaration.OrderNumber.ToString();
 
         
@@ -171,24 +170,23 @@ namespace Dbsys.Forms
             {
                 listMenu = db.Menu.ToList();
 
-                // Filter menus by category and assign them to the respective combo boxes
                 cbDishes.DisplayMember = "MenuName";
                 cbDishes.ValueMember = "MenuId";
                 cbDishes.DataSource = listMenu.Where(m => m.MenuCategory == "Dishes").ToList();
-                cbDishes.DropDownStyle = ComboBoxStyle.DropDownList; // Set DropDownStyle
-                cbDishes.SelectedIndex = -1; // Set selected index to -1
+                cbDishes.DropDownStyle = ComboBoxStyle.DropDownList; 
+                cbDishes.SelectedIndex = -1;
 
                 cbDrinks.DisplayMember = "MenuName";
                 cbDrinks.ValueMember = "MenuId";
                 cbDrinks.DataSource = listMenu.Where(m => m.MenuCategory == "Drinks").ToList();
-                cbDrinks.DropDownStyle = ComboBoxStyle.DropDownList; // Set DropDownStyle
-                cbDrinks.SelectedIndex = -1; // Set selected index to -1
+                cbDrinks.DropDownStyle = ComboBoxStyle.DropDownList; 
+                cbDrinks.SelectedIndex = -1;
 
                 cbDessert.DisplayMember = "MenuName";
                 cbDessert.ValueMember = "MenuId";
                 cbDessert.DataSource = listMenu.Where(m => m.MenuCategory == "Dessert").ToList();
-                cbDessert.DropDownStyle = ComboBoxStyle.DropDownList; // Set DropDownStyle
-                cbDessert.SelectedIndex = -1; // Set selected index to -1
+                cbDessert.DropDownStyle = ComboBoxStyle.DropDownList; 
+                cbDessert.SelectedIndex = -1; 
             }
         }
 
@@ -374,11 +372,12 @@ namespace Dbsys.Forms
                 e.Graphics.DrawString("TOTAL AMOUNT ", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(400, 880));
                 e.Graphics.DrawString("CASH RECEIVED ", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(400, 910));
                 e.Graphics.DrawString("CHANGE ", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(400, 940));
+                e.Graphics.DrawString("DISCOUNT ", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(400, 940));
 
                 e.Graphics.DrawString(txtTotalBill.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(630, 880));
                 e.Graphics.DrawString(txtAmount.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(630, 910));
                 e.Graphics.DrawString("₱" + txtChange.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(630, 940));
-
+                e.Graphics.DrawString("₱" + cbDiscount.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(630, 940));
 
                 for (int i = 0; i < dataGridViewPurchase.RowCount; i++)
                 {
@@ -419,30 +418,29 @@ namespace Dbsys.Forms
             {
                 Total = CalculateTotalForCustomer(txtCustomerName.Text);
 
-                // Check if Senior Citizen or PWD is selected in the combo box
+               
                 if (cbDiscount.SelectedItem != null)
                 {
                     string discountType = cbDiscount.SelectedItem.ToString();
                     double discountPercentage = 0;
 
-                    // Apply the discount based on the selected option
+                   
                     switch (discountType)
                     {
                         case "Senior Citizen":
-                            discountPercentage = 0.05; // 5% discount for senior citizens
+                            discountPercentage = 0.05; 
                             break;
 
                         case "Person with Disability":
-                            discountPercentage = 0.07; // 7% discount for PWD
+                            discountPercentage = 0.07; 
                             break;
 
-                        // Add more cases if needed for additional discount types
 
                         default:
                             break;
                     }
 
-                    // Apply the discount to the total
+                  
                     Total -= Total * discountPercentage;
                 }
 
@@ -503,40 +501,40 @@ namespace Dbsys.Forms
                         throw new Exception("Amount paid is less than the Total Bill.");
                     }
 
-                    // Check if Senior Citizen or PWD is selected in the combo box
+                   
                     if (cbDiscount.SelectedItem != null)
                     {
                         string discountType = cbDiscount.SelectedItem.ToString();
                         double discountPercentage = 0;
 
-                        // Apply the discount based on the selected option
+                     
                         switch (discountType)
                         {
                             case "Senior Citezen":
-                                discountPercentage = 0.05; // 5% discount for senior citizens
+                                discountPercentage = 0.05; 
                                 break;
 
                             case " Person with Disability":
-                                discountPercentage = 0.07; // 7% discount for PWD
+                                discountPercentage = 0.07; 
                                 break;
 
-                            // Add more cases if needed for additional discount types
+                           
 
                             default:
                                 break;
                         }
 
-                        // Calculate the discounted total
+                     
                         double discountedTotal = Total - (Total * discountPercentage);
 
-                        // Deduct the discounted total from the amount paid
+                      
                         double change = amountPaid - discountedTotal;
 
                         txtChange.Text = currencySymbol + change.ToString("N2");
                     }
                     else
                     {
-                        // If no discount is selected, deduct the original total from the amount paid
+                       
                         double change = amountPaid - Total;
                         txtChange.Text = currencySymbol + change.ToString("N2");
                     }

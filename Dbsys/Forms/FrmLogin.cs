@@ -84,7 +84,7 @@ namespace Dbsys
 
         private void linkLabelRigester_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Instantiate new object of class Frm_Register
+           
             FrmRegister frm = new FrmRegister();
             frm.ShowDialog();
 

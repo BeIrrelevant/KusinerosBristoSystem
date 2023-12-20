@@ -26,7 +26,7 @@ namespace Dbsys.Forms
         {
             InitializeComponent();
             db = new DBSYSEntities();
-            userRepo = new UserRepository(); // Instantiate the UserRepository
+            userRepo = new UserRepository(); 
             dgv_main.DataSource = userRepo.UserAccounts();
             dgv_main.DataSource = null;
         }
@@ -101,10 +101,10 @@ namespace Dbsys.Forms
                 txtUsername.Text = dgv_main.Rows[e.RowIndex].Cells[1].Value as string;
                 txtPassword.Text = dgv_main.Rows[e.RowIndex].Cells[2].Value as string;
 
-                // Retrieve the user account from the repository
+     
                 var userAccount = userRepo.GetUserById(userSelectedId);
 
-                // Set the selected item in the ComboBox to the role of the selected user
+              
                 if (userAccount != null)
                 {
                     cbBoxRole.SelectedValue = userAccount.roleId;
@@ -136,22 +136,21 @@ namespace Dbsys.Forms
                     return;
                 }
 
-                // Retrieve the user account from the repository
+   
                 var userAccount = userRepo.GetUserById(userSelectedId);
 
-                // Update the properties of the user account with new values
+         
                 userAccount.userName = username;
                 userAccount.userPassword = pass;
                 userAccount.roleId = (int)cbBoxRole.SelectedValue;
 
-                // Call the UpdateUser method in the repository
                 ErrorCode retValue = userRepo.UpdateUser(userSelectedId, userAccount, ref strOutputMsg);
 
                 if (retValue == ErrorCode.Success)
                 {
                     errorProviderCustom.Clear();
                     MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    UserEntry_Load(sender, e); // Reload the updated user data in the DataGridView
+                    UserEntry_Load(sender, e); 
                     userSelectedId = null;
                 }
                 else

@@ -18,7 +18,6 @@ namespace Dbsys.Forms
         public bool hasChange = false;
         private String IMG_PATH = AppDomain.CurrentDomain.BaseDirectory + "\\MenuImage";
 
-        // Event declaration
         public event EventHandler ItemAdded;
 
         public FrmAddMenu()
@@ -56,14 +55,14 @@ namespace Dbsys.Forms
                     newMenu.MenuName = txtMenuName.Text;
                     newMenu.MenuPrice = Convert.ToDecimal(txtPrice.Text);
                     newMenu.MenuImg = newFile;
-                    newMenu.MenuCategory = cbCategory.SelectedItem.ToString(); // Assign the selected category
+                    newMenu.MenuCategory = cbCategory.SelectedItem.ToString(); 
 
                     db.Menu.Add(newMenu);
                     db.SaveChanges();
 
                     hasChange = true;
 
-                    // Raise the event to notify FrmMenu about the new item
+               
                     ItemAdded?.Invoke(this, EventArgs.Empty);
                 }
              
