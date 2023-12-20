@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ba6b4505a7a4141ba9c39e83a8dbe66" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="DBSYSModel.vw_all_user_role" Width="1.5" PointX="7.75" PointY="1.25" />
+        <EntityTypeShape EntityType="DBSYSModel.UserAccount" Width="1.5" PointX="5.75" PointY="1.25" />
+        <EntityTypeShape EntityType="DBSYSModel.Role" Width="1.5" PointX="9.625" PointY="1.25" />
+        <EntityTypeShape EntityType="DBSYSModel.Menu" Width="1.5" PointX="10.25" PointY="3.75" />
+        <EntityTypeShape EntityType="DBSYSModel.Purchase" Width="1.5" PointX="4.125" PointY="6" />
+        <AssociationConnector Association="DBSYSModel.FK_Purchase_UserAccount" />
+        <EntityTypeShape EntityType="DBSYSModel.OrderDetails" Width="1.5" PointX="8" PointY="4.75" />
+        <AssociationConnector Association="DBSYSModel.FK_OrderDetails_UserAccount" />
+        <EntityTypeShape EntityType="DBSYSModel.SalesReport" Width="1.5" PointX="3.5" PointY="4.125" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
